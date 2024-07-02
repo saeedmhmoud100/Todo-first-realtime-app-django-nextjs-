@@ -9,7 +9,7 @@ export default function ListItems() {
 
             {
                 Array.from({length: 10}).map((_, index) => (
-                    <Item key={index} />
+                    <Item key={index} id={index}/>
                 ))
             }
 

@@ -1,4 +1,5 @@
 import Item from "@/components/Item";
+import Link from "next/link";
 
 
 export default function Add() {
@@ -8,6 +9,8 @@ export default function Add() {
             <div className="items flex flex-col rounded-2xl shadow-lg p-8" style={{boxShadow: "1px 1px 16px rgb(0, 0, 0, 0.2)"}}>
                 <input className=" h-12 rounded-md border border-violet-800 text-2xl px-4 border-2" type="text"/>
                 <button className="bg-violet-700 text-white h-12 mt-4 rounded-md">Add</button>
+                <Link href="/" className=" w-full"><button className=" w-full bg-gray-700 text-white h-12 mt-4 rounded-md">Back</button></Link>
+
             </div>
         </div>
 

@@ -1,5 +1,6 @@
 import addIcon from '../icons/plus-solid.svg';
 import ListItems from "@/components/ListItems";
+import Link from "next/link";
 
 
 export default function Home() {
@@ -9,7 +10,7 @@ export default function Home() {
           <h1 className="text-center text-2xl text-violet-700 font-bold mb-10">Todo app</h1>
 
           <div className="add-button p-2 cursor-pointer mb-8 w-max" style={{boxShadow: "1px 1px 16px rgb(0, 0, 0, 0.2)"}}>
-              <img src={addIcon.src} style={{width:"20px", height:"20px"}}/>
+              <Link href="/add" ><img src={addIcon.src} style={{width:"20px", height:"20px"}}/> </Link>
           </div>
 
             <ListItems />
