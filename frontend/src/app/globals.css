@@ -8,3 +8,20 @@
     box-sizing: border-box;
 }
 
+.item-text{
+    position: relative;
+}
+
+.item-text > span{
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: rgba(40, 40, 40, .8);
+    z-index: 1;
+    top: 50%;
+    left: 0;
+    transition: width .3s ease;
+}
+
+
