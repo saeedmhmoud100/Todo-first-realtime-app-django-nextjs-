@@ -12,7 +12,7 @@ export default function Item({id}:{id: number}) {
 
 
     return (
-        <div className="item flex justify-between px-8 py-2 border-b border-b-gray-500">
+        <div className="item  flex justify-between px-8 py-2 border-b border-b-gray-500">
             <div className="task-info flex items-center">
             <input type="checkbox" className={`w-4 h-4`} onClick={e=> handleCheckChange(e)}/>
             <div className={`item-text text ml-4`}>text <span className='line' style={done? {width:"336px"} : {}}></span></div>
