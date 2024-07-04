@@ -1,9 +1,25 @@
+"use client";
 import addIcon from '../icons/plus-solid.svg';
 import ListItems from "@/components/ListItems";
 import Link from "next/link";
+import {useEffect, useState} from "react";
 
 
 export default function Home() {
+    const socket = new WebSocket('ws://localhost:8000/ws/todo/');
+
+
+    useEffect(() => {
+        socket.onopen = () => {
+            console.log('Connection established');
+            socket.onmessage = (msg) => {
+                console.log(msg);
+            }
+
+            socket.send(JSON.stringify({"message":'Hello from client'}));
+        }
+    }, []);
+
   return (
     <main className="container flex flex-col m-auto items-center mt-20">
       <div style={{width:"500px"}}>
