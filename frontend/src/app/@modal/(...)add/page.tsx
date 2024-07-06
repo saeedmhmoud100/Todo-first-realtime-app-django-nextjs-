@@ -3,7 +3,7 @@ import Add from "@/app/add/page";
 import {redirect, useRouter} from "next/navigation";
 import xIcon from '../../../icons/x-solid.svg'
 import {useRef} from "react";
-import AddNewTask from "@/hooks/AddNewTask";
+import {ServerActions} from "@/hooks/serverActions";
 import {useSocket} from "@/hooks/useSocket";
 
 export default function Modal() {
@@ -13,7 +13,7 @@ export default function Modal() {
     function handleClick(e) {
         if (inp.current) {
             const content = inp.current.value;
-            AddNewTask(content,socket);
+            ServerActions(content,socket);
             inp.current.value = "";
         }
     }

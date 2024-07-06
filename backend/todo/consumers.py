@@ -25,14 +25,24 @@ class TodoConsumer(WebsocketConsumer):
     def receive(self, text_data):
         data = json.loads(text_data)
         event = data.get("event")
-        content = data.get("message")
-        if event == "add" and content:
-            async_to_sync(self.add_todo)(content)
-            # send for only this client
-            # self.send(text_data="added")
-            serialized_todos = serialize("json",async_to_sync(self.get_all_todos)())
-            # call send_message method to send message to all clients
+        if event == "add":
+            content = data.get("message")
+            if content:
+                async_to_sync(self.add_todo)(content)
+                # send for only this client
+                # self.send(text_data="added")
+                serialized_todos = serialize("json",async_to_sync(self.get_all_todos)())
+                # call send_message method to send message to all clients
+                async_to_sync(self.channel_layer.group_send)(self.group_name, {"type": "send_message", "message": serialized_todos})
+
+        elif event == "change-status":
+            task_id = data.get("id")
+            todo = Todo.objects.get(id=task_id)
+            todo.completed = not todo.completed
+            todo.save()
+            serialized_todos = serialize("json", async_to_sync(self.get_all_todos)())
             async_to_sync(self.channel_layer.group_send)(self.group_name, {"type": "send_message", "message": serialized_todos})
+
     def send_message(self, event):
         message = event["message"]
         self.send(text_data=json.dumps(message))
@@ -46,6 +56,3 @@ class TodoConsumer(WebsocketConsumer):
     def add_todo(self, content):
         Todo.objects.create(content=content)
 
-    # async def send_group_message(self, event):
-    #     message = event["message"]
-    #     get_channel_layer().group_send(self.group_name, {"type": "send_message", "message": message})

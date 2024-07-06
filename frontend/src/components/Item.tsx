@@ -3,19 +3,24 @@ import deleteIcon from '../icons/trash-can-regular.svg';
 import updateIcon from '../icons/pen-to-square-regular.svg';
 import Link from "next/link";
 import {useState} from "react";
+import {ChangeTaskStatus} from "@/hooks/serverActions";
+import {useSocket} from "@/hooks/useSocket";
 
-export default function Item({id,content}:{id: number,content:string}) {
-    const [done, setDone] = useState<boolean>(false);
+export default function Item({id,content,completed}:{id: number,content:string,completed:boolean}) {
+
+
+    const {socket} = useSocket();
     const handleCheckChange : (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
-        setDone(n => !n)
+        ChangeTaskStatus(id,socket);
     }
+
 
 
     return (
         <div className="item  flex justify-between px-8 py-2 border-b border-b-gray-500">
             <div className="task-info flex items-center">
-            <input type="checkbox" className={`w-4 h-4`} onClick={e=> handleCheckChange(e)}/>
-            <div className={`item-text text ml-4`}>{content} <span className='line' style={done? {width:"336px"} : {}}></span></div>
+            <input type="checkbox" className={`w-4 h-4`} onChange={e=> handleCheckChange(e)} checked={completed}/>
+            <div className={`item-text text ml-4`}>{content} <span className='line' style={completed? {width:"336px"} : {}}></span></div>
 
             </div>
             <div className="icons flex">

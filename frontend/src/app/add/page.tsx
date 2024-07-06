@@ -2,7 +2,7 @@
 import Item from "@/components/Item";
 import Link from "next/link";
 import {useRef} from "react";
-import AddNewTask from "@/hooks/AddNewTask";
+import {ServerActions} from "@/hooks/serverActions";
 import {useSocket} from "@/hooks/useSocket";
 
 
@@ -12,7 +12,7 @@ export default function Add() {
     function handleClick(e) {
         if (inp.current) {
             const content = inp.current.value;
-            AddNewTask(content,socket);
+            ServerActions(content,socket);
             inp.current.value = "";
         }
     }

@@ -1,7 +1,6 @@
 "use client";
 import Item from "@/components/Item";
 
-import {useEffect, useState} from "react";
 import {useSocket} from "@/hooks/useSocket";
 
 
@@ -12,7 +11,7 @@ export default function ListItems() {
 
             {
                 data[0]?.map((item, index) => (
-                    <Item key={item.pk} id={item.pk} content={item.fields?.content}/>
+                    <Item key={item.pk} id={item.pk} content={item.fields?.content} completed={item.fields?.completed}/>
                 ))
             }
 
