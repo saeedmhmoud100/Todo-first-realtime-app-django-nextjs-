@@ -27,7 +27,7 @@ class TodoConsumer(WebsocketConsumer):
         event = data.get("event")
         content = data.get("message")
         if event == "add" and content:
-            self.add_todo(content)
+            async_to_sync(self.add_todo)(content)
             # send for only this client
             # self.send(text_data="added")
             serialized_todos = serialize("json",async_to_sync(self.get_all_todos)())

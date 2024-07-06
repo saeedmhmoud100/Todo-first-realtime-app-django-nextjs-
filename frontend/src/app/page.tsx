@@ -8,17 +8,6 @@ import {useSocket} from "@/hooks/useSocket";
 
 export default function Home() {
 
-    const {socket,data} = useSocket();
-    useEffect(() => {
-        if (socket) {
-            socket.onmessage = (event) => {
-                console.log("Received data:", event.data);
-                // You can parse the data if it's JSON or handle it as needed
-            }
-        }
-    }, [socket]);
-
-    console.log("Data:", data)
     return (
     <main className="container flex flex-col m-auto items-center mt-20">
       <div style={{width:"500px"}}>
