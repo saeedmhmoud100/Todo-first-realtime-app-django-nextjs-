@@ -3,17 +3,19 @@ import deleteIcon from '../icons/trash-can-regular.svg';
 import updateIcon from '../icons/pen-to-square-regular.svg';
 import Link from "next/link";
 import {useState} from "react";
-import {ChangeTaskStatus} from "@/hooks/serverActions";
+import {ChangeTaskStatus, DeleteTask} from "@/hooks/serverActions";
 import {useSocket} from "@/hooks/useSocket";
 
 export default function Item({id,content,completed}:{id: number,content:string,completed:boolean}) {
-
-
     const {socket} = useSocket();
+
     const handleCheckChange : (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
         ChangeTaskStatus(id,socket);
     }
 
+    const handleDelete : (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => void = () => {
+        DeleteTask(id,socket);
+    }
 
 
     return (
@@ -25,8 +27,8 @@ export default function Item({id,content,completed}:{id: number,content:string,c
             </div>
             <div className="icons flex">
 
-                <img src={deleteIcon.src} className="w-5 h-5 mr-4 cursor-pointer"/>
-                    <Link href={`update/${id}`}><img src={updateIcon.src} className="w-5 h-5 cursor-pointer" /></Link>
+                <img src={deleteIcon.src} className="w-5 h-5 mr-4 cursor-pointer" onClick={_=> handleDelete() }/>
+                <Link href={`update/${id}`}><img src={updateIcon.src} className="w-5 h-5 cursor-pointer" /></Link>
             </div>
 
         </div>

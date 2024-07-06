@@ -9,3 +9,8 @@ export function ChangeTaskStatus(pk: number, socket: WebSocket) {
     socket.send(JSON.stringify({"id":pk, "event":"change-status"}));
     return;
 }
+
+export function DeleteTask(pk: number, socket: WebSocket) {
+    socket.send(JSON.stringify({"id":pk, "event":"delete"}));
+    return;
+}
