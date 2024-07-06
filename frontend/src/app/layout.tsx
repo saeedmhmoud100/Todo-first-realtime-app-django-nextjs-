@@ -1,6 +1,8 @@
+
 import type {Metadata} from "next";
 import {Inter} from "next/font/google";
 import "./globals.css";
+import {GlobalContextProvider} from "@/hooks/useSocket";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -19,8 +21,10 @@ export default function RootLayout({
     return (
         <html lang="en">
         <body className={inter.className}>
-        {modal}
-        {children}
+        <GlobalContextProvider>
+            {modal}
+            {children}
+        </GlobalContextProvider>
         </body>
         </html>
     );

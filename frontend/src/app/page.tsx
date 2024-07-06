@@ -3,24 +3,23 @@ import addIcon from '../icons/plus-solid.svg';
 import ListItems from "@/components/ListItems";
 import Link from "next/link";
 import {useEffect, useState} from "react";
+import {useSocket} from "@/hooks/useSocket";
 
 
 export default function Home() {
-    const socket = new WebSocket('ws://localhost:8000/ws/todo/');
 
-
+    const {socket,data} = useSocket();
     useEffect(() => {
-        socket.onopen = () => {
-            console.log('Connection established');
-            socket.onmessage = (msg) => {
-                console.log(msg);
+        if (socket) {
+            socket.onmessage = (event) => {
+                console.log("Received data:", event.data);
+                // You can parse the data if it's JSON or handle it as needed
             }
-
-            socket.send(JSON.stringify({"message":'Hello from client'}));
         }
-    }, []);
+    }, [socket]);
 
-  return (
+    console.log("Data:", data)
+    return (
     <main className="container flex flex-col m-auto items-center mt-20">
       <div style={{width:"500px"}}>
           <h1 className="text-center text-2xl text-violet-700 font-bold mb-10">Todo app</h1>

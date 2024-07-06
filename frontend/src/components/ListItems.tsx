@@ -1,15 +1,18 @@
+"use client";
 import Item from "@/components/Item";
 
+import {useEffect, useState} from "react";
+import {useSocket} from "@/hooks/useSocket";
 
-export default function ListItems() {
 
+export default function ListItems({items}) {
+    const {data} = useSocket();
     return (
-
         <div className="items flex flex-col py-4 rounded-2xl shadow-lg overflow-y-auto" style={{boxShadow: "1px 1px 16px rgb(0, 0, 0, 0.2)",height:"450px"}}>
 
             {
-                Array.from({length: 10}).map((_, index) => (
-                    <Item key={index} id={index}/>
+                data[0]?.map((item, index) => (
+                    <Item key={item.pk} id={item.pk} content={item.fields?.content}/>
                 ))
             }
 
