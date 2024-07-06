@@ -49,6 +49,14 @@ class TodoConsumer(WebsocketConsumer):
             todo.delete()
             serialized_todos = serialize("json", async_to_sync(self.get_all_todos)())
             async_to_sync(self.channel_layer.group_send)(self.group_name, {"type": "send_message", "message": serialized_todos})
+        elif event == "update":
+            task_id = data.get("id")
+            content = data.get("message")
+            todo = Todo.objects.get(id=task_id)
+            todo.content = content
+            todo.save()
+            serialized_todos = serialize("json", async_to_sync(self.get_all_todos)())
+            async_to_sync(self.channel_layer.group_send)(self.group_name, {"type": "send_message", "message": serialized_todos})
 
     def send_message(self, event):
         message = event["message"]

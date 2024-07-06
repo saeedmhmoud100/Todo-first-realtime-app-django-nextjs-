@@ -11,7 +11,7 @@ export default function ListItems() {
 
             {
                 data[0]?.map((item, index) => (
-                    <Item key={item.pk} id={item.pk} content={item.fields?.content} completed={item.fields?.completed}/>
+                    <Item key={item.pk} pk={item.pk} content={item.fields?.content} completed={item.fields?.completed}/>
                 ))
             }
 

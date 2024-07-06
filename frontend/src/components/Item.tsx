@@ -6,15 +6,15 @@ import {useState} from "react";
 import {ChangeTaskStatus, DeleteTask} from "@/hooks/serverActions";
 import {useSocket} from "@/hooks/useSocket";
 
-export default function Item({id,content,completed}:{id: number,content:string,completed:boolean}) {
+export default function Item({pk,content,completed}:{id: number,content:string,completed:boolean}) {
     const {socket} = useSocket();
 
     const handleCheckChange : (e: React.ChangeEvent<HTMLInputElement>) => void = (e) => {
-        ChangeTaskStatus(id,socket);
+        ChangeTaskStatus(pk,socket);
     }
 
     const handleDelete : (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => void = () => {
-        DeleteTask(id,socket);
+        DeleteTask(pk,socket);
     }
 
 
@@ -28,7 +28,7 @@ export default function Item({id,content,completed}:{id: number,content:string,c
             <div className="icons flex">
 
                 <img src={deleteIcon.src} className="w-5 h-5 mr-4 cursor-pointer" onClick={_=> handleDelete() }/>
-                <Link href={`update/${id}`}><img src={updateIcon.src} className="w-5 h-5 cursor-pointer" /></Link>
+                <Link href={`update/${pk}`}><img src={updateIcon.src} className="w-5 h-5 cursor-pointer" /></Link>
             </div>
 
         </div>
