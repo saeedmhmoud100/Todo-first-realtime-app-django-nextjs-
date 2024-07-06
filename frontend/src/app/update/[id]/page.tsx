@@ -7,18 +7,17 @@ import {useEffect, useRef, useState} from "react";
 import {useSocket} from "@/hooks/useSocket";
 
 export default function Page() {
-    const {id}:{id} = useParams();
+    const {id} = useParams();
     const ref = useRef(null);
     const {socket,data} = useSocket();
     const [value, setValue] = useState<string>("");
     const {push} = useRouter();
 
     useEffect(() => {
-        console.log(data)
         if(data[0]){
             setValue(data[0]?.find(item => item.pk == id).fields?.content)
         }
-    },[socket])
+    },[data])
 
     const handleClick = () => {
         UpdateTask(id, ref.current.value, socket);

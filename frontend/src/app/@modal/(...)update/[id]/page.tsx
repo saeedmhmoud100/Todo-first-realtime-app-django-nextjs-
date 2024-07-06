@@ -12,7 +12,6 @@ export default function Modal() {
     const ref = useRef(null);
     const {socket,data} = useSocket();
     const [value, setValue] = useState<string>("");
-    const exitIcon = useRef(null);
     console.log(data)
     useEffect(() => {
         if(data[0]){
@@ -35,7 +34,7 @@ export default function Modal() {
 
     return(
         <div className="modal modal-close" id="modal" onClick={e => handleHide(e)}>
-            <div ref={exitIcon} className="container m-auto mt-40" style={{width:"600px",zIndex:"3"}}>
+            <div className="container m-auto mt-40" style={{width:"600px",zIndex:"3"}}>
                 <div className="items flex flex-col rounded-2xl shadow-lg p-8 bg-white" style={{boxShadow: "1px 1px 16px rgb(0, 0, 0, 0.2)"}}>
                     <div className="flex "><img src={xIcon.src}  className="modal-close w-4 h-4 cursor-pointer" onClick={e => handleHide(e)}/> </div>
                     <h1 className="text-center text-2xl text-violet-700 font-bold mb-10">Update Task ({id})</h1>
